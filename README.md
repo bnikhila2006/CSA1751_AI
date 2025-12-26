@@ -28,3 +28,30 @@ for each neighbour, cost in G[node] do
             g_cost[neighbour] ← new_cost
             PARENT[neighbour] ← node
             add neighbour to OPEN
+            ALPHABETA(depth, node, maximizingPlayer, values, alpha, beta)
+
+if depth = maximumDepth then return values[node]
+
+if maximizingPlayer then best ← −∞ for each child of node do val ← ALPHABETA(depth+1, child, FALSE, values, alpha, beta) best ← max(best, val) alpha ← max(alpha, best) if beta ≤ alpha then break // Beta cut-off return best
+
+else best ← +∞ for each child of node do val ← ALPHABETA(depth+1, child, TRUE, values, alpha, beta) best ← min(best, val) beta ← min(beta, best) if beta ≤ alpha then break // Alpha cut-off return best WATER_JUG(jug1, jug2, target) create empty set VISITED create empty queue Q
+
+enqueue (0, 0, path) into Q
+
+while Q is not empty do (a, b, path) ← dequeue from Q
+
+if (a, b) is in VISITED then
+    continue
+add (a, b) to VISITED
+
+if a = target OR b = target then
+    return path
+
+enqueue (a, jug2) into Q          // fill jug2
+enqueue (jug1, b) into Q          // fill jug1
+enqueue (0, b) into Q             // empty jug1
+enqueue (a, 0) into Q             // empty jug2
+pour ← min(a, jug2 − b)
+enqueue (a − pour, b + pour)      // jug1 → jug2
+pour ← min(jug1 − a, b)
+enqueue (a + pour, b − pour)      // jug2 → jug1
