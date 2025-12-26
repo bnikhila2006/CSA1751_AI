@@ -55,3 +55,54 @@ pour ← min(a, jug2 − b)
 enqueue (a − pour, b + pour)      // jug1 → jug2
 pour ← min(jug1 − a, b)
 enqueue (a + pour, b − pour)      // jug2 → jug1
+display board print Draw UNIFORM_COST_SEARCH(G, start, goal)
+
+create empty set VISITED create priority queue PQ
+
+insert (0, start) into PQ // cost, node
+
+while PQ is not empty do (cost, node) ← remove node with lowest cost from PQ
+
+if node is in VISITED then
+    continue
+add node to VISITED
+
+if node = goal then
+    return cost
+
+for each neighbour with edge cost in G[node] do
+    if neighbour not in VISITED then
+        insert (cost + edge_cost, neighbour) into PQ
+return NO SOLUTION GREEDY_BEST_FIRST_SEARCH(G, H, start, goal)
+
+create empty set VISITED create priority queue PQ
+
+insert (H[start], start) into PQ // heuristic, node
+
+while PQ is not empty do (h, node) ← remove node with lowest heuristic from PQ
+
+if node is in VISITED then
+    continue
+add node to VISITED
+
+if node = goal then
+    return SUCCESS
+
+for each neighbour in G[node] do
+    if neighbour not in VISITED then
+        insert (H[neighbour], neighbour) into PQ
+return FAILURE MINIMAX(node, depth, maximizingPlayer)
+
+if depth = 0 OR node is terminal then return evaluation of node
+
+if maximizingPlayer then best ← −∞ for each child of node do value ← MINIMAX(child, depth−1, FALSE) best ← max(best, value) return best
+
+else best ← +∞ for each child of node do value ← MINIMAX(child, depth−1, TRUE) best ← min(best, value) return best CRYPTARITHMETIC(words, result)
+
+extract all unique letters assign each letter a unique digit (0–9)
+
+for each possible digit assignment do if leading letter has value 0 then continue
+
+convert words and result to numbers
+if sum of word values = result value then
+    return valid assignment
